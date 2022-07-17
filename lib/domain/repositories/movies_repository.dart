@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:either_dart/either.dart';
 import 'package:filmfan/domain/entities/actor.dart';
 
 import '../../core/error/failures.dart';

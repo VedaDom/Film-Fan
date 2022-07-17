@@ -4,7 +4,7 @@ import 'package:filmfan/domain/entities/movie.dart';
 
 import 'package:filmfan/core/error/failures.dart';
 
-import 'package:dartz/dartz.dart';
+import 'package:either_dart/either.dart';
 
 import '../../core/network/network_info.dart';
 import '../../domain/repositories/movies_repository.dart';

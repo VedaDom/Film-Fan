@@ -22,4 +22,18 @@ class Movie {
     required this.genres,
     required this.rating,
   });
+
+  factory Movie.empty() {
+    return Movie(
+      id: 0,
+      backdropPath: null,
+      overview: '',
+      posterPath: '',
+      releaseDate: '',
+      title: '',
+      voteAverage: 0,
+      genres: null,
+      rating: 0,
+    );
+  }
 }

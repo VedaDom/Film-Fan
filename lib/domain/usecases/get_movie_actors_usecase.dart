@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:either_dart/either.dart';
 import 'package:filmfan/core/usecases/pram_usecase.dart';
 
 import '../../core/error/failures.dart';
