@@ -1,4 +1,5 @@
 import 'package:filmfan/constants.dart';
+import 'package:filmfan/data/models/actor_model.dart';
 import 'package:get/get.dart';
 
 import '../../core/error/exceptions.dart';
@@ -33,7 +34,7 @@ abstract class MoviesRemoteDataSource {
   /// to get movie actors.
   ///
   /// Throws a [ServerException] for all error codes.
-  Future<List<MovieModel>> getMovieActors(int movieId);
+  Future<List<ActorModel>> getMovieActors(int movieId);
 
   /// Calls the https://xxx/3/movie/{MOVIE_ID}/rating endpoint
   /// to rate a movie.
@@ -107,7 +108,7 @@ class MoviesRemoteDataSourceImpl extends GetConnect
   }
 
   @override
-  Future<List<MovieModel>> getMovieActors(int movieId) async {
+  Future<List<ActorModel>> getMovieActors(int movieId) async {
     final response = await get(
       '/3/movie/$movieId/credits',
       query: {
@@ -116,7 +117,7 @@ class MoviesRemoteDataSourceImpl extends GetConnect
     );
     if (response.statusCode == 200) {
       return (response.body["cast"] as List<dynamic>)
-          .map((e) => MovieModel.fromJson(e))
+          .map((e) => ActorModel.fromJson(e))
           .toList();
     } else {
       throw ServerException();
