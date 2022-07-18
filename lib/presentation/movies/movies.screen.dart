@@ -12,6 +12,7 @@ class MoviesScreen extends GetView<MoviesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFF032541),
         title: const Text(
           "Film Fan - Now playing movies",
           style: TextStyle(
@@ -64,7 +65,11 @@ class MoviesScreen extends GetView<MoviesController> {
             );
           },
         ),
-        onLoading: const Center(child: CircularProgressIndicator()),
+        onLoading: const Center(
+          child: CircularProgressIndicator(
+            color: Color(0xFF032541),
+          ),
+        ),
         onEmpty: const Text('No data found'),
         onError: (error) => Text(error ?? "Error occured!"),
       ),

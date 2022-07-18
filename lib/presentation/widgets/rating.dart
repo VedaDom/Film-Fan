@@ -26,7 +26,7 @@ class Rating extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              value.toString(),
+              value.toStringAsFixed(1),
               style: const TextStyle(
                 fontSize: 8,
                 color: Colors.white,

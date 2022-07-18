@@ -38,6 +38,13 @@ class MoviesService extends GetxService {
   List<Movie> ratedMovies = [];
   List<Movie> favoriteMovies = [];
 
+  @override
+  void onInit() {
+    getRatedMovies();
+    getFavoriteMovies();
+    super.onInit();
+  }
+
   Future<Either<Failure, List<Movie>>> getNowPlayingMovies() async {
     final result = await getNowPlayingMoviesUseCase();
     if (result.isRight) {
