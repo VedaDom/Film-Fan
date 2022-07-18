@@ -13,7 +13,7 @@ import '../domain/usecases/get_rated_movies_usecase.dart';
 import '../domain/usecases/get_similar_movies_usecase.dart';
 import '../domain/usecases/rate_movie_usecase.dart';
 
-class MoviesServices extends GetxService {
+class MoviesService extends GetxService {
   final GetNowPlayingMoviesUseCase getNowPlayingMoviesUseCase;
   final GetRatedMoviesUseCase getRatedMoviesUseCase;
   final GetSimilarMoviesUseCase getSimilarMoviesUseCase;
@@ -23,7 +23,7 @@ class MoviesServices extends GetxService {
   final GetMovieActorsUseCase getMovieActorsUseCase;
   final GetFavoriteMoviesUseCase getFavoriteMoviesUseCase;
 
-  MoviesServices({
+  MoviesService({
     required this.getNowPlayingMoviesUseCase,
     required this.getRatedMoviesUseCase,
     required this.getSimilarMoviesUseCase,

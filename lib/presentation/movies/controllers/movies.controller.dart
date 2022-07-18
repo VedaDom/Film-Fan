@@ -1,23 +1,28 @@
+import 'package:filmfan/domain/entities/movie.dart';
 import 'package:get/get.dart';
 
-class MoviesController extends GetxController {
-  //TODO: Implement MoviesController
+import '../../movies.service.dart';
 
-  final count = 0.obs;
+class MoviesController extends GetxController with StateMixin<List<Movie>> {
+  var isLoading = false.obs;
+
   @override
   void onInit() {
+    getNowPlayingMovies();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Future<void> getNowPlayingMovies() async {
+    change([], status: RxStatus.loading());
+    final response = await Get.find<MoviesService>().getNowPlayingMovies();
+    if (response.isRight) {
+      if (response.right.isNotEmpty) {
+        change(response.right, status: RxStatus.success());
+      } else {
+        change(response.right, status: RxStatus.empty());
+      }
+    } else {
+      change([], status: RxStatus.error("Error occured, try again later."));
+    }
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
