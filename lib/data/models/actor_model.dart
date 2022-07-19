@@ -2,7 +2,7 @@ import '../../constants.dart';
 import '../../domain/entities/actor.dart';
 
 class ActorModel extends Actor {
-  ActorModel({
+  const ActorModel({
     required super.id,
     required super.name,
     required super.originalName,

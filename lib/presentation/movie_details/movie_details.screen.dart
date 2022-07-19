@@ -1,5 +1,4 @@
 import 'package:filmfan/infrastructure/navigation/routes.dart';
-import 'package:filmfan/presentation/movies.service.dart';
 import 'package:filmfan/presentation/widgets/movie_item.dart';
 import 'package:filmfan/presentation/widgets/rating.dart';
 import 'package:flutter/material.dart';
@@ -39,20 +38,6 @@ class MovieDetailsScreen extends GetView<MovieDetailsController> {
                       height: 270,
                       fit: BoxFit.cover,
                     ),
-                    const SizedBox(height: 8),
-                    Positioned(
-                      top: 36,
-                      right: 8,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.favorite,
-                          color: controller.isFavorite
-                              ? Theme.of(context).primaryColor
-                              : Colors.grey,
-                        ),
-                      ),
-                    ),
                     Positioned(
                       bottom: 0,
                       left: 16,
@@ -73,28 +58,48 @@ class MovieDetailsScreen extends GetView<MovieDetailsController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      movie.title,
-                      maxLines: 1,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 26,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          movie.title,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 26,
+                          ),
+                        ),
+                        Obx(
+                          () => IconButton(
+                            onPressed: () {
+                              controller.addToFavorite(movie);
+                            },
+                            icon: Icon(
+                              Icons.favorite,
+                              color: controller.isFavorite.value
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                    RatingBar.builder(
-                      initialRating: controller.ratings,
-                      minRating: 1,
-                      itemSize: 32,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Theme.of(context).primaryColor,
+                    Obx(
+                      () => RatingBar.builder(
+                        initialRating: controller.ratings.value,
+                        minRating: 1,
+                        itemSize: 32,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        onRatingUpdate: (rating) {
+                          controller.rateMovie(movie, rating);
+                        },
                       ),
-                      onRatingUpdate: (rating) {
-                        Get.find<MoviesService>().rateMovie(movie, rating);
-                      },
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -213,7 +218,7 @@ class MovieDetailsScreen extends GetView<MovieDetailsController> {
                   return MovieItem(
                     movie: controller.similarMovies[index],
                     onTap: () {
-                      Get.offNamed(
+                      Get.offAndToNamed(
                         Routes.MOVIE_DETAILS,
                         arguments: controller.similarMovies[index].id,
                       );

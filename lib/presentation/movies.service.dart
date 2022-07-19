@@ -1,4 +1,5 @@
 import 'package:either_dart/either.dart';
+import 'package:filmfan/data/models/movie_model.dart';
 import 'package:filmfan/domain/usecases/get_favorite_movies_usecase.dart';
 import 'package:filmfan/domain/usecases/get_movie_details_usecase.dart';
 import 'package:get/get.dart';
@@ -64,7 +65,7 @@ class MoviesService extends GetxService {
   Future<Either<Failure, List<Movie>>> getFavoriteMovies() async {
     final result = await getFavoriteMoviesUseCase();
     if (result.isRight) {
-      favoriteMovies = result.right;
+      favoriteMovies = result.right.reversed.toList();
     }
     return result;
   }
@@ -85,7 +86,14 @@ class MoviesService extends GetxService {
       ),
     );
     if (result.isRight) {
-      ratedMovies.add(movie);
+      final index = ratedMovies.indexWhere((element) => element.id == movie.id);
+      if (index != -1) {
+        ratedMovies[index] = (ratedMovies[index] as MovieModel).copyWith(
+          rating: rating,
+        );
+      } else {
+        ratedMovies.add(movie);
+      }
     }
     return result;
   }
@@ -93,7 +101,10 @@ class MoviesService extends GetxService {
   Future<Either<Failure, String>> addMovieToFavorites(Movie movie) async {
     final result = await addMovieToFavoritesUseCase(movie.id);
     if (result.isRight) {
-      favoriteMovies.add(movie);
+      final index = favoriteMovies.indexOf(movie);
+      if (index == -1) {
+        favoriteMovies.add(movie);
+      }
     }
     return result;
   }

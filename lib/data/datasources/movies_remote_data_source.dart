@@ -56,19 +56,6 @@ abstract class MoviesRemoteDataSource {
 }
 
 class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
-  // @override
-  // void onInit() {
-  //   // httpClient.baseUrl = Constants.BASE_URL;
-  //   httpClient.defaultContentType = 'application/json';
-  //   httpClient.addRequestModifier<Object?>((request) {
-  //     request.url.queryParametersParameters.addAll({
-  //       'api_key': Constants.API_KEY,
-  //     });
-  //     return request;
-  //   });
-  //   super.onInit();
-  // }
-
   final client = Dio(
     BaseOptions(
       baseUrl: Constants.BASE_URL,

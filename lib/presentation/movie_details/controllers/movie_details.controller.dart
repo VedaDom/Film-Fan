@@ -7,13 +7,27 @@ import '../../movies.service.dart';
 class MovieDetailsController extends GetxController with StateMixin<Movie> {
   List<Movie> similarMovies = [];
   List<Actor> actors = [];
-  double ratings = 0.0;
-  bool isFavorite = false;
+  var ratings = 0.0.obs;
+  var isFavorite = false.obs;
 
   @override
   void onInit() {
     getMovieDetails();
     super.onInit();
+  }
+
+  Future<void> rateMovie(Movie movie, double rating) async {
+    final response = await Get.find<MoviesService>().rateMovie(movie, rating);
+    if (response.isRight) {
+      ratings.value = rating;
+    }
+  }
+
+  Future<void> addToFavorite(Movie movie) async {
+    final response = await Get.find<MoviesService>().addMovieToFavorites(movie);
+    if (response.isRight) {
+      isFavorite.value = true;
+    }
   }
 
   Future<void> getMovieDetails() async {
@@ -44,15 +58,16 @@ class MovieDetailsController extends GetxController with StateMixin<Movie> {
           .where((element) => element.id == movieId)
           .toList();
       if (movie.isNotEmpty) {
-        ratings = movie.first.rating;
+        ratings.value = movie.first.rating;
       }
     }
 
     if (Get.find<MoviesService>().favoriteMovies.isNotEmpty) {
-      isFavorite = Get.find<MoviesService>()
+      final isNotEmpty = Get.find<MoviesService>()
           .favoriteMovies
           .where((element) => element.id == movieId)
           .isNotEmpty;
+      isFavorite.value = isNotEmpty;
     }
 
     if (response.isRight) {

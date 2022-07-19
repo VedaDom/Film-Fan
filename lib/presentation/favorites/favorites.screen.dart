@@ -1,7 +1,10 @@
+import 'package:filmfan/presentation/movies.service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../infrastructure/navigation/routes.dart';
+import '../widgets/movie_item.dart';
 import 'controllers/favorites.controller.dart';
 
 class FavoritesScreen extends GetView<FavoritesController> {
@@ -10,14 +13,36 @@ class FavoritesScreen extends GetView<FavoritesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FavoritesScreen'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Text(
-          'FavoritesScreen is working',
-          style: TextStyle(fontSize: 20),
+        backgroundColor: const Color(0xFF032541),
+        title: const Text(
+          "Favorites",
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
+        centerTitle: false,
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      body: GridView.builder(
+        itemCount: Get.find<MoviesService>().favoriteMovies.length,
+        controller: ScrollController(keepScrollOffset: false),
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: (180 / 279),
+        ),
+        itemBuilder: (context, index) {
+          return MovieItem(
+            movie: Get.find<MoviesService>().favoriteMovies[index],
+            onTap: () {
+              Get.toNamed(
+                Routes.MOVIE_DETAILS,
+                arguments: Get.find<MoviesService>().favoriteMovies[index].id,
+              );
+            },
+          );
+        },
       ),
     );
   }

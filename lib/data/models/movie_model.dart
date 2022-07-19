@@ -2,7 +2,7 @@ import 'package:filmfan/data/models/genre_model.dart';
 import 'package:filmfan/domain/entities/movie.dart';
 
 class MovieModel extends Movie {
-  MovieModel({
+  const MovieModel({
     required super.id,
     required super.backdropPath,
     required super.overview,
@@ -47,5 +47,29 @@ class MovieModel extends Movie {
     }
     data['rating'] = rating;
     return data;
+  }
+
+  MovieModel copyWith({
+    int? id,
+    String? backdropPath,
+    String? overview,
+    String? posterPath,
+    String? releaseDate,
+    String? title,
+    double? voteAverage,
+    List<GenreModel>? genres,
+    double? rating,
+  }) {
+    return MovieModel(
+      id: id ?? this.id,
+      backdropPath: backdropPath ?? this.backdropPath,
+      overview: overview ?? this.overview,
+      posterPath: posterPath ?? this.posterPath,
+      releaseDate: releaseDate ?? this.releaseDate,
+      title: title ?? this.title,
+      voteAverage: voteAverage ?? this.voteAverage,
+      genres: genres ?? this.genres,
+      rating: rating ?? this.rating,
+    );
   }
 }

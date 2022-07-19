@@ -1,6 +1,7 @@
 import 'package:filmfan/domain/entities/movie.dart';
 import 'package:filmfan/presentation/widgets/rating.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../constants.dart';
 
@@ -51,7 +52,9 @@ class MovieItem extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        movie.releaseDate,
+                        DateFormat.yMMMMd('en_US').format(
+                          DateTime.parse(movie.releaseDate),
+                        ),
                         maxLines: 1,
                       ),
                     ],
@@ -59,16 +62,6 @@ class MovieItem extends StatelessWidget {
                 )
               ],
             ),
-            // Positioned(
-            //   right: 0,
-            //   child: IconButton(
-            //     onPressed: () {},
-            //     icon: Icon(
-            //       Icons.favorite,
-            //       color: Colors.grey,
-            //     ),
-            //   ),
-            // ),
             Positioned(
               bottom: 43,
               left: 16,
