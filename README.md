@@ -1,16 +1,31 @@
-# filmfan
+# Film Fan
+  
+<p align="center">  
+<img  src="https://res.cloudinary.com/dlwzb2uh3/image/upload/v1658224363/FilmFan_uievhu.png">  
+</p>
 
-A new Flutter project.
+---
 
-## Getting Started
+- [Film Fan](#film-fan)
+    - [Film Fan Application](#film-fan-application)
+    - [Installation](#installation)
+    - [Technologies](#technologies)
 
-This project is a starting point for a Flutter application.
+### Film Fan Application
+**Film Fan** is a new startup based in Kigali. Their vision is to become the single place for discovering and booking movies in Rwanda.
 
-A few resources to get you started if this is your first Flutter project:
+### Installation
+To run this project on your local machine you will need to follow the following steps:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Assuming that you have flutter installed, if not visit https://flutter.dev/docs/get-started/install
+- In you terminal, run `git clone https://github.com/VedaDom/Film-Fan.git`
+- In you terminal, run `cd Film-Fan`
+- In you terminal, run `flutter pub get`
+- In you terminal, run `flutter run`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Technologies
+This application uses the following technologies:
+- **The Movie Database** https://www.themoviedb.org as `back-end api`
+- Android studio with Java
+- **Flutter** with **Clean Architecture Pattern**
+- **GetX state management** https://pub.dev/packages/get
