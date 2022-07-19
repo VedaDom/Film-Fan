@@ -20,8 +20,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(
+        primaryColor: const Color(0xFF032541),
+      ),
       initialRoute: initialRoute,
       getPages: Nav.routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
