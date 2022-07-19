@@ -50,6 +50,7 @@ class MoviesService extends GetxService {
     final result = await getNowPlayingMoviesUseCase();
     if (result.isRight) {
       nowPlayingMovies = result.right;
+      nowPlayingMovies.sort((a, b) => a.title.compareTo(b.title));
     }
     return result;
   }

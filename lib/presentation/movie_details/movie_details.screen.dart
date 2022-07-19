@@ -58,15 +58,33 @@ class MovieDetailsScreen extends GetView<MovieDetailsController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      movie.title,
+                      maxLines: 2,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          movie.title,
-                          maxLines: 1,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26,
+                        Obx(
+                          () => RatingBar.builder(
+                            initialRating: controller.ratings.value,
+                            minRating: 1,
+                            itemSize: 32,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            onRatingUpdate: (rating) {
+                              controller.rateMovie(movie, rating);
+                            },
                           ),
                         ),
                         Obx(
@@ -75,7 +93,9 @@ class MovieDetailsScreen extends GetView<MovieDetailsController> {
                               controller.addToFavorite(movie);
                             },
                             icon: Icon(
-                              Icons.favorite,
+                              controller.isFavorite.value
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline,
                               color: controller.isFavorite.value
                                   ? Theme.of(context).primaryColor
                                   : Colors.grey,
@@ -83,23 +103,6 @@ class MovieDetailsScreen extends GetView<MovieDetailsController> {
                           ),
                         )
                       ],
-                    ),
-                    Obx(
-                      () => RatingBar.builder(
-                        initialRating: controller.ratings.value,
-                        minRating: 1,
-                        itemSize: 32,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        onRatingUpdate: (rating) {
-                          controller.rateMovie(movie, rating);
-                        },
-                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
